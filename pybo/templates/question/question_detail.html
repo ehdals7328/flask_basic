@@ -1,23 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{question.subject}}</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-</head>
+{% extends 'base.html' %}
+{% block content %}
 <body>
-        {{question.content}}
-        <h5>{{question.answers_set|length}} 개의 답변이 있네요</h5>
-        <div>
-        <ul>
-            {% for answer in question.answers_set %}
-            <li>{{answer.content}}</li>
-            {% endfor %}
-        </ul>
+<div class="container my-3">
+        <h2 class="border-bottom py-2"> {{ question.subject }} </h2>
+        <div class="card my-3">
+         <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;"> {{question.content}} </div>
+            <div class="text-end">
+                <div class="badge badge-light text-dark p-2"> {{question.create_date}} </div>
+            </div>
         </div>
-<form action = "{{url_for('answer.create', question_id=question.id)}}" method="post">
-    <textarea name = "content" id = "content" rows = "15"></textarea>
-    <input type = "submit" value = "답변등록">
-</form>
-</body>
-</html>
+    </div>
+
+    <h5 class="border-bottom my-3 py-2"> {{question.answers_set|length}} 개의 답변이 있습니다.</h5>
+    {% for answer in question.answers_set %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;"> {{answer.content}}</div>
+            <div class="text-end">
+                <div class="badge bg-light text-dark p-2"> {{ answer.create_date}}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <form action="{{url_for('answer.create', question_id=question.id)}}" method="post" class="my-3">
+        <div class="form-group">
+            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="답변 등록" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}
