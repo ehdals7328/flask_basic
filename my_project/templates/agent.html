@@ -5,53 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Agent - Ai Project</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body class="detail-bg">
 
-    <!-- 1. 상단 다크 헤더 (공통) -->
     <header class="header">
         <div class="logo-area">
-            <a href="index.html" class="logo-text">Ai Project</a>
+            <a href="{{ url_for('main.index') }}" class="logo-text">Ai Project</a>
         </div>
         <nav class="nav">
-            <a href="vision.html">Vision</a>
-            <a href="rag.html">RAG</a>
-            <a href="agent.html" class="active">Ai agent</a>
+            <a href="{{ url_for('main.vision') }}">Vision</a>
+            <a href="{{ url_for('main.rag') }}">RAG</a>
+            <a href="{{ url_for('main.agent') }}" class="active">Ai agent</a>
+            <a href="{{ url_for('question._list') }}">FAQ</a>
         </nav>
     </header>
 
-    <!-- 2. 중앙 AI Agent 상세 콘텐츠 영역 -->
     <main class="detail-container">
         <h2 class="page-title">Autonomous AI Agent System & Workflow Execution</h2>
 
-        <!-- 에이전트 작업 실행 시뮬레이션 박스 -->
         <div class="monitoring-box">
             <div class="video-section">
-                <!-- 입력/목표 설정 영역 -->
                 <div style="margin-bottom: 15px;">
                     <label style="font-weight: bold; display: block; margin-bottom: 5px;">[에이전트 태스크 명령 입력]</label>
                     <input type="text" value="Oracle DB 기술 문맥 검색 및 실시간 Web Search 기반 통합 분석"
                         style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" readonly>
                 </div>
 
-                <!-- 실행 단계 시뮬레이션 화면 -->
                 <div class="video-screen"
                     style="height: 220px; justify-content: flex-start; padding: 15px; text-align: left; align-items: flex-start;">
-                    <span style="font-weight: bold; color: #0066cc; margin-bottom: 10px;">[Flask 백엔드 기반 워크플로우 진행
-                        상태]</span>
+                    <span style="font-weight: bold; color: #0066cc; margin-bottom: 10px;">[Flask 백엔드 기반 워크플로우 진행 상태]</span>
                     <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.8; color: #333;">
                         <li>✔ <strong>Step 1. User Intent Analysis:</strong> Llama 3.2 기반 의도 파악 및 쿼리 분해</li>
                         <li>✔ <strong>Step 2. Tool Routing:</strong> Oracle RDB (RAG Vector Query) & Web Search 호출</li>
                         <li>✔ <strong>Step 3. Context Retrieval:</strong> Oracle DB 내 스키마/데이터 검색 및 실시간 검색 데이터 결합</li>
-                        <li>⏳ <strong>Step 4. Final Response:</strong> Fine-tuned Llama 3.2 모델을 통한 최종 추론 및 Flask 응답 반환
-                        </li>
+                        <li>⏳ <strong>Step 4. Final Response:</strong> Fine-tuned Llama 3.2 모델을 통한 최종 추론 및 Flask 응답 반환</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 메타데이터 영역 (사용자 개발 환경 맞춤) -->
             <div class="metadata-section">
                 <ul>
                     <li><strong>Backend Server:</strong> Python / Flask</li>
@@ -62,17 +55,14 @@
             </div>
         </div>
 
-        <!-- 모델 및 에이전트 구조 설명 -->
         <div class="model-section">
             <h3>Base Architecture : Multi-Agent System</h3>
             <div class="description-box">
-                <p>단순 질문 응답을 넘어, 사용자의 목표를 스스로 판단하여 하위 태스크로 분해하고 필요한 도구(Tool/API)를 연동해 자율적으로 비즈니스 프로세스 전체를 완수하는 AI 에이전트
-                    시스템입니다.</p>
+                <p>단순 질문 응답을 넘어, 사용자의 목표를 스스로 판단하여 하위 태스크로 분해하고 필요한 도구(Tool/API)를 연동해 자율적으로 비즈니스 프로세스 전체를 완수하는 AI 에이전트 시스템입니다.</p>
             </div>
         </div>
     </main>
 
-    <!-- 3. 하단 푸터 (동일 구조) -->
     <footer class="footer">
         <div class="footer-content">
         </div>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ question.subject }} - Ai Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="detail-bg">
+
+    <!-- 1. 상단 공통 헤더 -->
+    <header class="header">
+        <div class="logo-area">
+            <a href="{{ url_for('main.index') }}" class="logo-text">Ai Project</a>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('main.vision') }}">Vision</a>
+            <a href="{{ url_for('main.rag') }}">RAG</a>
+            <a href="{{ url_for('main.agent') }}">Ai agent</a>
+            <a href="{{ url_for('question._list') }}" class="active">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- 2. 게시판 본문 컨테이너 -->
+    <main class="detail-container">
+        <h2 class="page-title">{{ question.subject }}</h2>
+
+        <div class="description-box" style="margin-bottom: 30px;">
+            <p>{{ question.content }}</p>
+        </div>
+
+        <h3 style="margin-bottom: 15px; color: #111;">답변 {{ question.answers_set|length }}개</h3>
+
+        <div style="margin-bottom: 30px;">
+            <ul style="list-style: none; padding: 0;">
+                {% for answer in question.answers_set %}
+                <li style="background-color: #f8f9fa; border: 1px solid #000000; border-radius: 6px; padding: 15px; margin-bottom: 10px; color: #333;">
+                    {{ answer.content }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 답변 작성 폼 -->
+        <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+            <textarea name="content" id="content" rows="5" placeholder="답변을 입력하세요." required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;"></textarea>
+            <div style="text-align: right;">
+                <input type="submit" value="답변등록" style="padding: 10px 24px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+            </div>
+        </form>
+    </main>
+
+    <!-- 3. 하단 푸터 -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>개인정보처리방침 | 이용약관</p>
+            <p>주소: 대구광역시 동구 동구대로 566</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

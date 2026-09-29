@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>질문 작성</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="detail-bg">
+
+    <!-- 상단 헤더 -->
+    <header class="header">
+        <div class="logo-area">
+            <a href="{{ url_for('main.index') }}" class="logo-text">Ai Project</a>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('main.vision') }}">Vision</a>
+            <a href="{{ url_for('main.rag') }}">RAG</a>
+            <a href="{{ url_for('main.agent') }}">Ai agent</a>
+            <a href="{{ url_for('question._list') }}" class="active">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- 질문 작성 폼 컨테이너 -->
+    <main class="detail-container">
+        <h2 class="page-title">새 질문 작성하기</h2>
+
+        <!-- Bootstrap 입력 폼 스타일 -->
+<form action="{{ url_for('question.create') }}" method="post">
+    <div class="mb-3">
+        <label for="subject" class="form-label fw-bold">제목</label>
+        <input type="text" name="subject" id="subject" class="form-control" placeholder="제목을 입력하세요" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label fw-bold">내용</label>
+        <textarea name="content" id="content" class="form-control" rows="8" required></textarea>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    </div>
+</form>
+    </main>
+
+    <!-- 하단 푸터 -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>개인정보처리방침 | 이용약관</p>
+            <p>주소: 대구광역시 동구 동구대로 566</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

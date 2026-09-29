@@ -5,53 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAG & Vector DB - Ai Project</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body class="detail-bg">
 
-    <!-- 1. 상단 다크 헤더 (동일 구조) -->
     <header class="header">
         <div class="logo-area">
-            <a href="index.html" class="logo-text">Ai Project</a>
+            <a href="{{ url_for('main.index') }}" class="logo-text">Ai Project</a>
         </div>
         <nav class="nav">
-            <a href="vision.html">Vision</a>
-            <a href="rag.html" class="active">RAG</a>
-            <a href="agent.html">Ai agent</a>
+            <a href="{{ url_for('main.vision') }}">Vision</a>
+            <a href="{{ url_for('main.rag') }}" class="active">RAG</a>
+            <a href="{{ url_for('main.agent') }}">Ai agent</a>
+            <a href="{{ url_for('question._list') }}">FAQ</a>
         </nav>
     </header>
 
-    <!-- 2. 중앙 RAG 상세 콘텐츠 영역 -->
     <main class="detail-container">
         <h2 class="page-title">RAG (Retrieval-Augmented Generation) & Vector DB</h2>
 
-        <!-- RAG 질의응답 시뮬레이션 박스 -->
         <div class="monitoring-box">
             <div class="video-section">
-                <!-- 입력 영역 -->
                 <div style="margin-bottom: 15px;">
                     <label style="font-weight: bold; display: block; margin-bottom: 5px;">[질의 입력 테스트]</label>
-                    <input type="text" value="HK Ai Project의 주요 특징은 무엇인가요?"
+                    <input type="text" value="Ai Project의 주요 특징은 무엇인가요?"
                         style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" readonly>
                 </div>
 
-                <!-- 출력 시뮬레이션 화면 -->
                 <div class="video-screen"
                     style="height: 200px; justify-content: flex-start; padding: 15px; text-align: left; align-items: flex-start;">
-                    <span style="font-weight: bold; color: #0066cc; margin-bottom: 8px;">[Vector DB 검색 및 답변 출력
-                        결과]</span>
+                    <span style="font-weight: bold; color: #0066cc; margin-bottom: 8px;">[Vector DB 검색 및 답변 출력 결과]</span>
                     <p style="font-size: 0.9rem; color: #444;">
-                        <strong>검색된 Context:</strong> "HK Ai Project는 Object Detection, RAG, AI Agent 기술을 통합 제공하는 포트폴리오
-                        시스템입니다..."
+                        <strong>검색된 Context:</strong> "HK Ai Project는 Object Detection, RAG, AI Agent 기술을 통합 제공하는 포트폴리오 시스템입니다..."
                     </p>
                     <p style="font-size: 0.95rem; margin-top: 10px; font-weight: bold;">
-                        <strong>LLM Answer:</strong> HK Ai Project는 객체 탐지 및 RAG 기반 문서 검색을 지원하는 통합 AI 플랫폼입니다.
+                        <strong>LLM Answer:</strong> Ai Project는 객체 탐지 및 RAG 기반 문서 검색을 지원하는 통합 AI 플랫폼입니다.
                     </p>
                 </div>
             </div>
 
-            <!-- 메타데이터 영역 -->
             <div class="metadata-section">
                 <ul>
                     <li><strong>Embedding:</strong> text-embedding-3</li>
@@ -62,17 +55,14 @@
             </div>
         </div>
 
-        <!-- 모델 및 시스템 구조 설명 -->
         <div class="model-section">
             <h3>Base Architecture : RAG Pipeline</h3>
             <div class="description-box">
-                <p>기업 내부 문서 및 비구조화 데이터를 임베딩하여 Vector DB에 저장하고, 사용자 질의와 가장 유사한 맥락(Context)을 추출하여 LLM의 할루시네이션을 방지하는 검색 증강
-                    생성 시스템입니다.</p>
+                <p>기업 내부 문서 및 비구조화 데이터를 임베딩하여 Vector DB에 저장하고, 사용자 질의와 가장 유사한 맥락(Context)을 추출하여 LLM의 할루시네이션을 방지하는 검색 증강 생성 시스템입니다.</p>
             </div>
         </div>
     </main>
 
-    <!-- 3. 하단 푸터 (동일 구조) -->
     <footer class="footer">
         <div class="footer-content">
         </div>

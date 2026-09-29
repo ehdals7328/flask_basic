@@ -8,7 +8,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* 상단 메뉴 클릭 시 부드러운 스크롤 이동 */
+    scroll-behavior: smooth;
     font-family: 'Pretendard', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -18,7 +18,7 @@ body {
     line-height: 1.6;
 }
 
-/* float 해제용 clearfix */
+/* Float 해제용 clearfix 및 정렬 */
 .clearfix::after {
     content: "";
     clear: both;
@@ -28,89 +28,86 @@ body {
 .float-left { float: left; }
 .float-right { float: right; }
 
-/* 이미지 비율 유지 (찌그러짐 방지) */
+/* 이미지 비율 유지 */
 .carousel-slide img,
 .robot-image-box img,
 .biz-media img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 원본 비율을 유지하면서 영역을 깔끔하게 채움 */
+    object-fit: cover;
     border-radius: 8px;
     display: block;
 }
 
 /* ==========================================
-   2. 상단 네비게이션 헤더
-   ========================================== */
-/* ==========================================
-   상단 플로팅 네비게이션 헤더 (공통)
+   2. 상단 플로팅 네비게이션 헤더 (수정완료)
    ========================================== */
 #main-header,
 header.header {
     position: fixed;
-    top: 15px;                  /* 화면 맨 위에서 15px 띄움 */
-    left: 50%;                  /* 화면 중앙 정렬 */
+    top: 15px;
+    left: 50%;
     transform: translateX(-50%);
-    width: 90%;                 /* 양쪽 여백을 남기고 가로 폭 90% */
+    width: 90%;
     max-width: 1200px;
-    background-color: rgba(18, 18, 18, 0.85); /* 약간의 투명도가 들어간 다크 배경 */
-    backdrop-filter: blur(10px); /* 뒤 배경이 살짝 비치는 블러 효과 */
-    
-    /* 둥근 모서리 및 그림자 효과 추가 */
-    border-radius: 16px;        /* 헤더 모서리를 둥글게 처리 */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 은은한 흰색 테두리 */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 깊이감 있는 어두운 그림자 */
-    
+    background-color: rgba(18, 18, 18, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     transition: all 0.3s ease;
+    padding: 16px 35px;
 }
 
-/* 헤더 내부 컨테이너 레이아웃 */
+/* 헤더 내부 레이아웃 - 양끝 정렬 핵심 처리 */
 .header-container,
-.header {
+header.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 35px;
     width: 100%;
 }
 
-.logo a {
-    color: #ffffff;
+.logo a,
+.logo-text {
+    color: #ffffff !important;
     font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
+    font-weight: bold !important;
+    text-decoration: none !important;
 }
 
-/* 네비게이션 메뉴 간 간격 확대 */
-.nav-menu ul {
-    list-style: none;
+/* 네비게이션 메뉴 정렬 */
+.nav {
     display: flex;
-    gap: 45px; /* 기존 30px에서 45px로 메뉴 사이 간격을 널널하게 확장 */
+    gap: 45px;
+    align-items: center;
 }
 
-.nav-menu a {
-    color: #cccccc;
-    text-decoration: none;
-    font-size: 1.15rem; /* 기존 1rem(16px)에서 1.15rem(약 18.4px)로 폰트 크기 증대 */
-    font-weight: 500;   /* 글자 두께를 미세하게 강화하여 가독성 향상 */
-    letter-spacing: 0.5px; /* 글자 자간 확대 */
-    transition: color 0.3s, font-size 0.2s;
+.nav a {
+    color: #cccccc !important;
+    text-decoration: none !important;
+    font-size: 1.15rem;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
 }
 
-.nav-menu a:hover {
-    color: #007bff;
+.nav a:hover,
+.nav a.active {
+    color: #007bff !important;
+    font-weight: 700 !important;
 }
 
 /* ==========================================
-   3. 상단 블랙 영역 (Header ~ Robot Section)
+   3. 메인 페이지 (Dark Zone)
    ========================================== */
 .dark-zone {
     background-color: #000000;
-    padding-top: 240px; /* 고정 헤더 공간 확보 */
+    padding-top: 240px;
 }
 
-/* 3-1. 메인 캐러셀 */
+/* 3-1. 캐러셀 */
 #hero-carousel {
     max-width: 1200px;
     margin: 20px auto 40px;
@@ -120,7 +117,7 @@ header.header {
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 400px; /* 캐러셀 높이 */
+    height: 400px;
     overflow: hidden;
     border-radius: 8px;
     border: 1px solid #333333;
@@ -142,18 +139,6 @@ header.header {
     to { opacity: 1; }
 }
 
-.slide-placeholder, .image-placeholder {
-    width: 100%;
-    height: 100%;
-    background-color: #1a1a1a;
-    border: 1px dashed #444444;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #777777;
-}
-
-/* 화살표 버튼 */
 .prev-btn, .next-btn {
     position: absolute;
     top: 50%;
@@ -190,21 +175,18 @@ header.header {
     background-color: #007bff;
 }
 
-/* 3-2. 통합 AI 소개 섹션 (3카드 그리드) */
+/* 3-2. 로봇/통합 AI 섹션 (3카드) */
 #robot-section {
     max-width: 1200px;
     margin: 80px auto;
     padding: 0 20px;
 }
 
-/* 상단 헤더 영역 */
 .robot-intro-header {
     margin-bottom: 50px;
 }
 
-.intro-title {
-    width: 50%;
-}
+.intro-title { width: 50%; }
 
 .intro-title h2 {
     font-size: 2.2rem;
@@ -213,9 +195,7 @@ header.header {
     color: #ffffff;
 }
 
-.intro-title .highlight {
-    color: #007bff; /* 강조용 파란색 포인트 */
-}
+.intro-title .highlight { color: #007bff; }
 
 .intro-desc {
     width: 45%;
@@ -229,28 +209,23 @@ header.header {
     margin-bottom: 12px;
 }
 
-/* 하단 3개 카드 박스 영역 (float 배치) */
-.cards-container {
-    margin-top: 20px;
-}
+.cards-container { margin-top: 20px; }
 
 .feature-card {
-    width: 31.33%; /* 3개 균등 분할 (간격 고려) */
+    width: 31.33%;
     margin-right: 3%;
-    background-color: #161616; /* 이미지와 동일한 어두운 카키/그레이 박스 */
+    background-color: #161616;
     border: 1px solid #2a2a2a;
-    border-radius: 16px; /* 둥근 모서리 */
+    border-radius: 16px;
     padding: 35px 25px;
     height: 240px;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.feature-card:last-child {
-    margin-right: 0; /* 마지막 카드는 오른쪽 여백 제거 */
-}
+.feature-card:last-child { margin-right: 0; }
 
 .feature-card:hover {
-    transform: translateY(-5px); /* 마우스 올렸을 때 살짝 뜨는 효과 */
+    transform: translateY(-5px);
     border-color: #007bff;
 }
 
@@ -273,7 +248,7 @@ header.header {
 }
 
 /* ==========================================
-   4. 블랙 -> 화이트 그라데이션 전환 구역
+   4. 전환 구역 & 라이트 존 (Business & Footer)
    ========================================== */
 .gradient-transition {
     width: 100%;
@@ -281,16 +256,12 @@ header.header {
     background: linear-gradient(to bottom, #000000, #ffffff);
 }
 
-/* ==========================================
-   5. 하단 화이트 영역 (Business & Footer)
-   ========================================== */
 .light-zone {
     background-color: #ffffff;
     color: #222222;
     padding-top: 40px;
 }
 
-/* 5-1. 비즈니스 섹션 (지그재그 float 레이아웃) */
 #business {
     max-width: 1200px;
     margin: 0 auto 80px;
@@ -306,24 +277,10 @@ header.header {
     padding-bottom: 10px;
 }
 
-.biz-item {
-    margin-bottom: 60px;
-}
-
-.biz-media {
-    width: 45%;
-    height: 280px;
-}
-
-.biz-content {
-    width: 50%;
-    padding: 20px 0;
-}
-
-.biz-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
+.biz-item { margin-bottom: 60px; }
+.biz-media { width: 45%; height: 280px; }
+.biz-content { width: 50%; padding: 20px 0; }
+.biz-content h3 { font-size: 1.8rem; margin-bottom: 15px; }
 
 .link-blue {
     color: #0056b3;
@@ -341,11 +298,12 @@ header.header {
     font-size: 1rem;
 }
 
-/* 5-2. 하단 푸터 */
-#main-footer {
+/* 푸터 */
+#main-footer, footer.footer {
     background-color: #f4f4f4;
     border-top: 1px solid #dddddd;
     padding: 40px 20px 20px;
+    color: #333333;
 }
 
 .footer-container {
@@ -353,30 +311,11 @@ header.header {
     margin: 0 auto 30px;
 }
 
-.footer-column {
-    width: 45%;
-}
-
-.footer-column h4 {
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    color: #333333;
-}
-
-.footer-column ul {
-    list-style: none;
-}
-
-.footer-column a {
-    color: #666666;
-    text-decoration: none;
-    font-size: 0.95rem;
-    line-height: 2;
-}
-
-.footer-column a:hover {
-    color: #000000;
-}
+.footer-column { width: 45%; }
+.footer-column h4 { margin-bottom: 15px; font-size: 1.1rem; color: #333333; }
+.footer-column ul { list-style: none; }
+.footer-column a { color: #666666; text-decoration: none; font-size: 0.95rem; line-height: 2; }
+.footer-column a:hover { color: #000000; }
 
 .footer-bottom {
     max-width: 1200px;
@@ -388,61 +327,20 @@ header.header {
     font-size: 0.85rem;
 }
 
-.footer-bottom a {
-    color: #666666;
-    text-decoration: none;
-}
+.footer-bottom a { color: #666666; text-decoration: none; }
+
 /* ==========================================
-   상세 페이지 전용 공통 스타일 (Vision, RAG, Agent)
+   5. 상세 페이지 전용 공통 스타일 (Vision, RAG, Agent, 게시판)
    ========================================== */
-/* 1. 상세 페이지만 흰색 배경 적용 (메인 페이지 흰색 띠 완벽 방지) */
 body.detail-bg {
     background-color: #ffffff !important;
     color: #333333 !important;
 }
 
-/* 2. 상세 페이지 헤더 (메인 페이지 헤더와 동일한 스타일 매칭) */
-header.header {
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
-    border-bottom: 1px solid #222222;
-}
-
-header.header .logo-text {
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* 3. 공통 네비게이션 (메뉴 간격 넓게 복구) */
-.nav {
-    display: flex;
-    gap: 45px; /* 메뉴 글자 사이 간격을 여유있게 확보 */
-    align-items: center;
-}
-
-.nav a {
-    color: #cccccc;
-    text-decoration: none;
-    font-size: 1.15rem;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav a:hover,
-.nav a.active {
-    color: #007bff;
-}
-
-/* 4. 중앙 상세 본문 컨테이너 및 내부 디자인 */
 .detail-container {
     width: 85%;
     max-width: 1100px;
-    margin: 120px auto 80px auto; /* 상단 고정 헤더 영역을 고려해 margin-top을 늘림 */
+    margin: 140px auto 80px auto;
 }
 
 .page-title {
@@ -461,9 +359,7 @@ header.header .logo-text {
     margin-bottom: 35px;
 }
 
-.video-section {
-    flex: 2;
-}
+.video-section { flex: 2; }
 
 .video-screen {
     border: 1px solid #666666;
@@ -494,24 +390,10 @@ header.header .logo-text {
     align-items: center;
 }
 
-.metadata-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+.metadata-section ul { list-style: none; padding: 0; margin: 0; }
+.metadata-section li { margin-bottom: 18px; font-size: 1.05rem; font-weight: bold; color: #222222; }
 
-.metadata-section li {
-    margin-bottom: 18px;
-    font-size: 1.05rem;
-    font-weight: bold;
-    color: #222222;
-}
-
-.model-section h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    color: #111111;
-}
+.model-section h3 { font-size: 1.3rem; margin-bottom: 12px; color: #111111; }
 
 .description-box {
     border: 1px solid #888888;
