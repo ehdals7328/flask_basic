@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{question.subject}}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+        {{question.content}}
+        <h5>{{question.answers_set|length}} 개의 답변이 있네요</h5>
+        <div>
+        <ul>
+            {% for answer in question.answers_set %}
+            <li>{{answer.content}}</li>
+            {% endfor %}
+        </ul>
+        </div>
+<form action = "{{url_for('answer.create', question_id=question.id)}}" method="post">
+    <textarea name = "content" id = "content" rows = "15"></textarea>
+    <input type = "submit" value = "답변등록">
+</form>
+</body>
+</html>
