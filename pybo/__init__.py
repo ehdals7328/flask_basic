@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 import config
+
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -17,8 +18,9 @@ def create_app(): # 관례적으로 사용하는 이름, user-defined function
     from .import models
 
     #Blue print
-    from .views import main_views, question_views, answer_views
+    from .views import main_views, question_views, answer_views, api_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
+    app.register_blueprint(api_views.bp)
     return app

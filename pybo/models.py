@@ -7,6 +7,14 @@ class Question(db.Model):
     content = db.Column(db.Text, nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'subject' : self.subject,
+            'content' : self.content,
+            'create_date' : self.create_date.strftime('%Y-%m-%d %H:%M:%S')
+        }
+
 class Answer(db.Model):
     id = db.Column(db.Integer, db.Sequence('answer_seq', start=1, increment=1), primary_key=True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'))

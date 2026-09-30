@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<body>
 <div class="container my-3">
         <h2 class="border-bottom py-2"> {{ question.subject }} </h2>
         <div class="card my-3">
@@ -25,6 +24,13 @@
     {% endfor %}
 
     <form action="{{url_for('answer.create', question_id=question.id)}}" method="post" class="my-3">
+        {{form.csrf_token}}
+        <!--오류표시 start-->
+        {% for field, errors in form.errors.items()%}
+        <div class = "alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{','.join(errors) }}
+        </div>
+        {% endfor %}
         <div class="form-group">
             <textarea name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
