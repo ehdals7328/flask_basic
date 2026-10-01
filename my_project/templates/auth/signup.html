@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- 회원가입 페이지 전용 스타일: 배경 흰색 및 상단 넉넉한 여백 지정 -->
+<style>
+    body {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+</style>
+
+<!-- style="padding-top: 100px;"으로 nav바 아래로 널널하게 내립니다 -->
+<div class="container mb-5" style="max-width: 540px; padding-top: 200px;">
+    <h3 class="fw-bold mb-4">회원가입</h3>
+
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">사용자 이름</label>
+            <input type="text" class="form-control" name="username" id="username"
+                   value="{{ form.username.data or '' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" name="password1" id="password1"
+                   value="{{ form.password1.data or '' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" class="form-control" name="password2" id="password2"
+                   value="{{ form.password2.data or '' }}">
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" class="form-control" name="email" id="email"
+                   value="{{ form.email.data or '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2">생성하기</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- 답변 수정 페이지 전용 스타일: 배경 흰색 및 상단 여백 지정 -->
+<style>
+    body {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+</style>
+
+<div class="container mb-5" style="max-width: 540px; padding-top: 100px;">
+    <h3 class="fw-bold mb-4">답변수정</h3>
+
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+
+        <div class="mb-3">
+            <label for="content" class="form-label fw-bold">답변내용</label>
+            <textarea class="form-control" name="content" id="content"
+                      rows="10">{{ form.content.data or '' }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2">저장하기</button>
+    </form>
+</div>
+{% endblock %}

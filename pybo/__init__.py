@@ -18,9 +18,15 @@ def create_app(): # 관례적으로 사용하는 이름, user-defined function
     from .import models
 
     #Blue print
-    from .views import main_views, question_views, answer_views, api_views
+    from .views import main_views, question_views, answer_views, api_views, auth_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(api_views.bp)
+    app.register_blueprint(auth_views.bp)
+
+    # 필터
+    from .filter import format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
+
     return app

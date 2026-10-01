@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- 로그인 페이지 전용 스타일: 배경 흰색 및 상단 넉넉한 여백 지정 -->
+<style>
+    body {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+</style>
+
+<!-- 회원가입 페이지와 동일하게 널널한 상단 여백(100px) 및 너비 지정 -->
+<div class="container mb-5" style="max-width: 540px; padding-top: 100px;">
+    <h3 class="fw-bold mb-4">로그인</h3>
+
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">사용자 이름</label>
+            <input type="text" class="form-control" name="username" id="username"
+                   value="{{ form.username.data or '' }}">
+        </div>
+
+        <div class="mb-4">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" name="password" id="password"
+                   value="{{ form.password.data or '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2">로그인</button>
+    </form>
+</div>
+{% endblock %}
