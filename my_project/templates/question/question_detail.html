@@ -1,71 +1,74 @@
 {% extends 'base.html' %}
-{% block title %}{{ question.subject }} - Ai Project{% endblock %}
-{% block body_class %}detail-bg{% endblock %}
-{% block nav_faq %}active{% endblock %}
-
 {% block content %}
-HTML
-<main class="detail-container">
-    <h2 class="page-title">{{ question.subject }}</h2>
+<div class="container my-3">
+    <h2 class="border-bottom py-2"> {{ question.subject }} </h2>
 
-    <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-body" style="background-color: #f8f9fa; border-radius: 6px; padding: 20px;">
-            <p class="card-text" style="white-space: pre-line; color: #333; margin: 0;">{{ question.content }}</p>
-            <div class="text-end text-muted mt-2" style="font-size: 0.85rem;">
-                <div class="mb-2">{{ question.user.username }}</div>
-                <div>{{ question.create_date.strftime('%Y-%m-%d %H:%M') }}</div>
-            </div>
+    <!-- 1. 질문 영역 카드 -->
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;"> {{ question.content }} </div>
 
-            <!-- 작성자 본인일 경우 수정 버튼 노출 -->
-            {% if g.user == question.user %}
-            <div class="mt-3 text-sm-end">
-                <a href="{{ url_for('question.modify', question_id=question.id) }}"
-                   class="btn btn-sm btn-outline-primary">수정</a>
-                <a href="#" class="delete btn btn-sm btn-outline-danger"
-                   data-uri="{{ url_for('question.delete', question_id=question.id) }}">삭제</a>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-
-    <h3 class="mb-3" style="font-size: 1.3rem; color: #111;">답변 {{ question.answers_set|length }}개</h3>
-
-    <div class="mb-4">
-        {% for answer in question.answers_set %}
-        <div class="card mb-3 border-0 shadow-sm">
-            <div class="card-body" style="background-color: #f8f9fa; border-radius: 6px; padding: 15px;">
-                <p class="card-text" style="white-space: pre-line; color: #333; margin-bottom: 10px;">{{ answer.content }}</p>
-                <div class="text-end">
-                    <div class="mb-2">{{ question.user.username}}</div>
-                    <span class="badge bg-light text-dark p-2">{{ answer.create_date.strftime('%Y-%m-%d %H:%M') }}</span>
+            <!-- 버튼(좌)과 작성자 정보(우)를 동일한 행에 정렬 -->
+            <div class="d-flex justify-content-between align-items-end mt-3">
+                <div>
+                    {% if g.user == question.user %}
+                    <a href="{{ url_for('question.modify', question_id=question.id) }}"
+                       class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                       data-uri="{{ url_for('question.delete', question_id=question.id) }}">삭제</a>
+                    {% endif %}
+                </div>
+                <div class="badge badge-light p-2 text-dark text-start">
+                    <div class="mb-2">{{ question.user.username }}</div>
+                    <div>{{ question.create_date }}</div>
                 </div>
             </div>
-        {% if g.user == answer.user %}
-        <div class ="my-3">
-            <a href = " {{ url_for('answer.modify', answer_id=answer.id) }}"
-               class = "btn btn-sm btn-outline-secondary"> 수정</a>
         </div>
-        {% endif %}
-        </div>
-        {% endfor %}
     </div>
 
-    <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" class="mt-4">
+    <!-- 2. 답변 개수 표시 -->
+    <h5 class="border-bottom my-3 py-2"> {{ question.answers_set|length }} 개의 답변이 있습니다.</h5>
+
+    <!-- 3. 답변 목록 반복문 -->
+    {% for answer in question.answers_set %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;"> {{ answer.content }}</div>
+
+            <!-- 질문 카드와 완전히 동일한 하단 행 구조 적용 -->
+            <div class="d-flex justify-content-between align-items-end mt-3">
+                <div>
+                    {% if g.user == answer.user %}
+                    <a href="{{ url_for('answer.modify', answer_id=answer.id) }}"
+                       class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                       data-uri="{{ url_for('answer.delete', answer_id=answer.id) }}">삭제</a>
+                    {% endif %}
+                </div>
+                <div class="badge badge-light p-2 text-dark text-start">
+                    <div class="mb-2">{{ answer.user.username }}</div>
+                    <div>{{ answer.create_date }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- 4. 답변 등록 폼 -->
+    <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" class="my-3">
         {{ form.csrf_token }}
+        <!-- 오류 표시 start -->
         {% for field, errors in form.errors.items() %}
         <div class="alert alert-danger" role="alert">
-            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+            <strong>{{ form[field].label }}</strong>: {{ ','.join(errors) }}
         </div>
         {% endfor %}
-        <div class="mb-3">
-            <label for="content" class="form-label fw-bold" style="color: #111;">답변 내용</label>
-            <textarea {% if not g.user %}disabled{% endif %} class="form-control" name="content" id="content" rows="5" placeholder=" " style="padding: 12px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+        <div class="form-group mb-3">
+            <textarea {% if not g.user %}disabled{% endif %} name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary px-4 fw-bold">답변등록</button>
-        </div>
+        <input type="submit" value="답변 등록" class="btn btn-primary">
     </form>
-</main>
+</div>
 {% endblock %}
 
 {% block script %}
